@@ -27,7 +27,7 @@ public class MapHandler {
         this.isHashMap = isHashMap;
     }
 
-    private static int rnd(int max) {
+    private static int randomNumber(int max) {
         return (int) (Math.random() * ++max);
     }
 
@@ -37,7 +37,7 @@ public class MapHandler {
         return (char) (start + rand % 26);
     }
 
-    private String mapStatus() {
+    private String mapType() {
         if (isHashMap) {
             return "HashMap";
         } else {
@@ -54,43 +54,43 @@ public class MapHandler {
             for (int j = 0; j < 5; j++) {
                 personName.append(randomChar());
             }
-            person = new Person(personName.toString(), rnd(80));
+            person = new Person(personName.toString(), randomNumber(80));
             map.put(person.getId(), person);
         }
         timeEnd = System.currentTimeMillis();
 
-        System.out.println("time to add " + countElements + " elements to " + mapStatus() + " = " + (timeEnd - timeStart));
+        System.out.println("time to add " + countElements + " elements to " + mapType() + " = " + (timeEnd - timeStart));
     }
 
-    public void remove(int DelElem) {
+    public void remove(int amountElements) {
         timeStart = System.currentTimeMillis();
-        List<Person> list = getRandomElements(DelElem);
+        List<Person> list = getRandomElements(amountElements);
         for (int i = 0; i < list.size(); i++) {
             map.remove(list.get(i).getId(), list.get(i));
         }
         timeEnd = System.currentTimeMillis();
         countElements = map.size();
-        System.out.println("time to remove 500 elements from " + mapStatus() + " = " + (timeEnd - timeStart));
+        System.out.println("time to remove 500 elements from " + mapType() + " = " + (timeEnd - timeStart));
     }
 
-    public List<Person> getRandomElements(int amount) {
+    public List<Person> getRandomElements(int amountElements) {
         List<Person> list = new ArrayList<>();
         Object[] objects = map.values().toArray();
-        for (int i = 0; i < amount; i++) {
-            list.add((Person) objects[rnd(countElements)]);
+        for (int i = 0; i < amountElements; i++) {
+            list.add((Person) objects[randomNumber(countElements)]);
         }
         return list;
     }
 
-    public void get(int getElem) {
+    public void get(int amountElements) {
         timeStart = System.currentTimeMillis();
-        List<Person> list = getRandomElements(getElem);
-        for (int i = 0; i < getElem; i++) {
+        List<Person> list = getRandomElements(amountElements);
+        for (int i = 0; i < amountElements; i++) {
             map.get(list.get(i).getId());
         }
         timeEnd = System.currentTimeMillis();
 
-        System.out.println("time to get 8000 elements from " + mapStatus() + " = " + (timeEnd - timeStart));
-        System.out.println("total working time from " + mapStatus() + " = " + (timeEnd - timeMapStart));
+        System.out.println("time to get 8000 elements from " + mapType() + " = " + (timeEnd - timeStart));
+        System.out.println("total working time from " + mapType() + " = " + (timeEnd - timeMapStart));
     }
 }

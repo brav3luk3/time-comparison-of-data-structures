@@ -25,7 +25,7 @@ public class ListHandler {
         this.isArrayList = isArrayList;
     }
 
-    private static int rnd(int max) {
+    private static int randomNumber(int max) {
         return (int) (Math.random() * ++max);
     }
 
@@ -35,7 +35,7 @@ public class ListHandler {
         return (char) (start + rand % 26);
     }
 
-    private String listStatus() {
+    private String listType() {
         if (isArrayList) {
             return "ArrayList";
         } else {
@@ -52,33 +52,33 @@ public class ListHandler {
             for (int j = 0; j < 5; j++) {
                 personName.append(randomChar());
             }
-            person = new Person(personName.toString(), rnd(80));
+            person = new Person(personName.toString(), randomNumber(80));
             list.add(person);
         }
         timeProcessEnd = System.currentTimeMillis();
 
-        System.out.println("time to add " + elements + " elements to " + listStatus() + " = " + (timeProcessEnd - timeProcessStart));
+        System.out.println("time to add " + elements + " elements to " + listType() + " = " + (timeProcessEnd - timeProcessStart));
     }
 
     public void remove(int amountElements) {
         timeProcessStart = System.currentTimeMillis();
         for (int i = 0; i < amountElements; i++) {
-            list.remove(rnd(elements - i));
+            list.remove(randomNumber(elements - i));
         }
         timeProcessEnd = System.currentTimeMillis();
-        System.out.println("time to remove " + amountElements + " elements from " + listStatus() + " = " + (timeProcessEnd - timeProcessStart));
+        System.out.println("time to remove " + amountElements + " elements from " + listType() + " = " + (timeProcessEnd - timeProcessStart));
     }
 
-    public void get(int getElem) {
+    public void get(int amountElements) {
         timeProcessStart = System.currentTimeMillis();
         int currentSize = list.size();
-        for (int i = 0; i < getElem; i++) {
-            list.get(rnd(currentSize));
+        for (int i = 0; i < amountElements; i++) {
+            list.get(randomNumber(currentSize));
         }
         timeProcessEnd = System.currentTimeMillis();
 
-        System.out.println("time to get " + getElem + " elements from " + listStatus() + " = " + (timeProcessEnd - timeProcessStart));
-        System.out.println("total working time from " + listStatus() + " = " + (timeProcessEnd - timeListStart));
+        System.out.println("time to get " + amountElements + " elements from " + listType() + " = " + (timeProcessEnd - timeProcessStart));
+        System.out.println("total working time from " + listType() + " = " + (timeProcessEnd - timeListStart));
     }
 
 }

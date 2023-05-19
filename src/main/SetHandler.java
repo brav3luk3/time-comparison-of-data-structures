@@ -27,7 +27,7 @@ public class SetHandler {
         this.isHashSet = isHashSet;
     }
 
-    private static int rnd(int max) {
+    private static int randomNumber(int max) {
         return (int) (Math.random() * ++max);
     }
 
@@ -37,7 +37,7 @@ public class SetHandler {
         return (char) (start + rand % 26);
     }
 
-    private String setStatus() {
+    private String setType() {
         if (isHashSet) {
             return "HashSet";
         } else {
@@ -54,43 +54,43 @@ public class SetHandler {
             for (int j = 0; j < 5; j++) {
                 personName.append(randomChar());
             }
-            person = new Person(personName.toString(), rnd(80));
+            person = new Person(personName.toString(), randomNumber(80));
             set.add(person);
         }
         timeEnd = System.currentTimeMillis();
 
-        System.out.println("time to add " + countElements + " elements to " + setStatus() + " = " + (timeEnd - timeStart));
+        System.out.println("time to add " + countElements + " elements to " + setType() + " = " + (timeEnd - timeStart));
     }
 
-    public void remove(int DelElem) {
+    public void remove(int amountElements) {
         timeStart = System.currentTimeMillis();
-        List<Person> list = getRandomElements(DelElem);
+        List<Person> list = getRandomElements(amountElements);
         for (int i = 0; i < list.size(); i++) {
             set.remove(list.get(i));
         }
         timeEnd = System.currentTimeMillis();
         countElements = set.size();
-        System.out.println("time to remove 500 elements from " + setStatus() + " = " + (timeEnd - timeStart));
+        System.out.println("time to remove 500 elements from " + setType() + " = " + (timeEnd - timeStart));
     }
 
-    public List<Person> getRandomElements(int amount) {
+    public List<Person> getRandomElements(int amountElements) {
         List<Person> list = new ArrayList<>();
         Object[] objects = set.toArray();
-        for (int i = 0; i < amount; i++) {
-            list.add((Person) objects[rnd(countElements)]);
+        for (int i = 0; i < amountElements; i++) {
+            list.add((Person) objects[randomNumber(countElements)]);
         }
         return list;
     }
 
-    public void get(int getElem) {
+    public void get(int amountElements) {
         timeStart = System.currentTimeMillis();
-        List<Person> list = getRandomElements(getElem);
+        List<Person> list = getRandomElements(amountElements);
         for (int i = 0; i < list.size(); i++) {
             set.contains(list.get(i));
         }
         timeEnd = System.currentTimeMillis();
 
-        System.out.println("time to get 8000 elements from " + setStatus() + " = " + (timeEnd - timeStart));
-        System.out.println("total working time from " + setStatus() + " = " + (timeEnd - timeSetStart));
+        System.out.println("time to get 8000 elements from " + setType() + " = " + (timeEnd - timeStart));
+        System.out.println("total working time from " + setType() + " = " + (timeEnd - timeSetStart));
     }
 }
