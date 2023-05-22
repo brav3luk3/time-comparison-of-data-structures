@@ -2,15 +2,12 @@ package main;
 
 
 import java.util.HashSet;
-import java.util.Random;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.List;
-import java.util.ArrayList;
 
 public class SetHandler {
     private Set<Person> set;
-    private Person person;
     private long timeSetStart;
     private long timeStart;
     private long timeEnd;
@@ -25,16 +22,6 @@ public class SetHandler {
             set = new TreeSet<>();
         }
         this.isHashSet = isHashSet;
-    }
-
-    private static int randomNumber(int max) {
-        return (int) (Math.random() * ++max);
-    }
-
-    private static char randomChar() {
-        int rand = new Random().nextInt(52);
-        char start = (rand < 26) ? 'A' : 'a';
-        return (char) (start + rand % 26);
     }
 
     private String setType() {
@@ -52,10 +39,9 @@ public class SetHandler {
         for (int i = 0; i < countElements; i++) {
             personName.setLength(0);
             for (int j = 0; j < 5; j++) {
-                personName.append(randomChar());
+                personName.append(RandomUtils.randomChar());
             }
-            person = new Person(personName.toString(), randomNumber(80));
-            set.add(person);
+            set.add(new Person(personName.toString(), RandomUtils.randomNumber(80)));
         }
         timeEnd = System.currentTimeMillis();
 
@@ -64,7 +50,7 @@ public class SetHandler {
 
     public void remove(int amountElements) {
         timeStart = System.currentTimeMillis();
-        List<Person> list = getRandomElements(amountElements);
+        List<Person> list = RandomUtils.getRandomElements(amountElements, set);
         for (int i = 0; i < list.size(); i++) {
             set.remove(list.get(i));
         }
@@ -73,18 +59,9 @@ public class SetHandler {
         System.out.println("time to remove 500 elements from " + setType() + " = " + (timeEnd - timeStart));
     }
 
-    public List<Person> getRandomElements(int amountElements) {
-        List<Person> list = new ArrayList<>();
-        Object[] objects = set.toArray();
-        for (int i = 0; i < amountElements; i++) {
-            list.add((Person) objects[randomNumber(countElements)]);
-        }
-        return list;
-    }
-
     public void get(int amountElements) {
         timeStart = System.currentTimeMillis();
-        List<Person> list = getRandomElements(amountElements);
+        List<Person> list = RandomUtils.getRandomElements(amountElements, set);
         for (int i = 0; i < list.size(); i++) {
             set.contains(list.get(i));
         }
